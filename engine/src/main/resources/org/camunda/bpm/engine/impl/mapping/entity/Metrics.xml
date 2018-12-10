@@ -139,14 +139,21 @@
     (
     SELECT
     NAME_,
-    REPORTER_,
+    <if test="aggregateByReporter">
+      null as REPORTER_,
+    </if>
+    <if test="!aggregateByReporter">
+      REPORTER_,
+    </if>
     VALUE_,
     FLOOR( (MILLISECONDS_ / 1000) / #{interval}) * #{interval} * 1000 as INTERVAL_
     <include refid="selectMeterLogsByQueryCriteriaSql"/>
     ) RES
     GROUP BY
     NAME_,
-    REPORTER_,
+    <if test="aggregateByReporter == null || !aggregateByReporter">
+      REPORTER_,
+    </if>
     INTERVAL_
   </sql>
 

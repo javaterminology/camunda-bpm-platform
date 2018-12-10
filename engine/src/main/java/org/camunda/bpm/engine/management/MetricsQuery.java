@@ -64,6 +64,8 @@ public interface MetricsQuery {
    */
   MetricsQuery limit(int maxResults);
 
+  MetricsQuery aggregateByReporter();
+
   /**
    * Returns the metrics summed up and aggregated on a time interval.
    * Default interval is 900 (15 minutes). The list size has a maximum of 200
