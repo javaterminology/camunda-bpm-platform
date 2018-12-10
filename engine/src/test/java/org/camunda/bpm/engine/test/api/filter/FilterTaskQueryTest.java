@@ -15,15 +15,7 @@
  */
 package org.camunda.bpm.engine.test.api.filter;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
+import com.google.gson.JsonObject;
 import org.camunda.bpm.engine.EntityTypes;
 import org.camunda.bpm.engine.ProcessEngineException;
 import org.camunda.bpm.engine.filter.Filter;
@@ -41,7 +33,6 @@ import org.camunda.bpm.engine.impl.json.JsonTaskQueryConverter;
 import org.camunda.bpm.engine.impl.persistence.entity.FilterEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.SuspensionState;
 import org.camunda.bpm.engine.impl.test.PluggableProcessEngineTestCase;
-import org.camunda.bpm.engine.impl.util.json.JSONObject;
 import org.camunda.bpm.engine.query.Query;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.DelegationState;
@@ -53,6 +44,15 @@ import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.engine.variable.type.ValueType;
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Sebastian Menski
@@ -1093,10 +1093,10 @@ public class FilterTaskQueryTest extends PluggableProcessEngineTestCase {
     String sortByNameAsc = "RES." + TaskQueryProperty.NAME.getName() + " " + Direction.ASCENDING.getName();
 
     JsonTaskQueryConverter converter = (JsonTaskQueryConverter) FilterEntity.queryConverter.get(EntityTypes.TASK);
-    JSONObject queryJson = converter.toJsonObject(filter.<TaskQuery>getQuery());
+    JsonObject queryJson = converter.toJsonObject(filter.<TaskQuery>getQuery());
 
     // when I apply a specific ordering by one dimension
-    queryJson.put(JsonTaskQueryConverter.ORDER_BY, sortByNameAsc);
+    queryJson.addProperty(JsonTaskQueryConverter.ORDER_BY, sortByNameAsc);
     TaskQueryImpl deserializedTaskQuery = (TaskQueryImpl) converter.toObject(queryJson);
 
     // then the ordering is applied accordingly
@@ -1122,10 +1122,10 @@ public class FilterTaskQueryTest extends PluggableProcessEngineTestCase {
     String secondaryOrdering = sortByNameAsc + ", RES." + TaskQueryProperty.ASSIGNEE.getName() + " " + Direction.DESCENDING.getName();
 
     JsonTaskQueryConverter converter = (JsonTaskQueryConverter) FilterEntity.queryConverter.get(EntityTypes.TASK);
-    JSONObject queryJson = converter.toJsonObject(filter.<TaskQuery>getQuery());
+    JsonObject queryJson = converter.toJsonObject(filter.<TaskQuery>getQuery());
 
     // when I apply a secondary ordering
-    queryJson.put(JsonTaskQueryConverter.ORDER_BY, secondaryOrdering);
+    queryJson.addProperty(JsonTaskQueryConverter.ORDER_BY, secondaryOrdering);
     TaskQueryImpl deserializedTaskQuery = (TaskQueryImpl) converter.toObject(queryJson);
 
     // then the ordering is applied accordingly
@@ -1158,10 +1158,10 @@ public class FilterTaskQueryTest extends PluggableProcessEngineTestCase {
     String orderingWithFunction = "LOWER(RES." + TaskQueryProperty.NAME.getName() + ") asc";
 
     JsonTaskQueryConverter converter = (JsonTaskQueryConverter) FilterEntity.queryConverter.get(EntityTypes.TASK);
-    JSONObject queryJson = converter.toJsonObject(filter.<TaskQuery>getQuery());
+    JsonObject queryJson = converter.toJsonObject(filter.<TaskQuery>getQuery());
 
     // when I apply an ordering with a function
-    queryJson.put(JsonTaskQueryConverter.ORDER_BY, orderingWithFunction);
+    queryJson.addProperty(JsonTaskQueryConverter.ORDER_BY, orderingWithFunction);
     TaskQueryImpl deserializedTaskQuery = (TaskQueryImpl) converter.toObject(queryJson);
 
     assertEquals(1, deserializedTaskQuery.getOrderingProperties().size());
