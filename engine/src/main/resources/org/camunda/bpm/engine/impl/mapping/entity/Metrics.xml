@@ -140,7 +140,7 @@
     SELECT
     NAME_,
     <if test="aggregateByReporter">
-      null REPORTER_,
+      cast(null as varchar) REPORTER_,
     </if>
     <if test="!aggregateByReporter">
       REPORTER_,
