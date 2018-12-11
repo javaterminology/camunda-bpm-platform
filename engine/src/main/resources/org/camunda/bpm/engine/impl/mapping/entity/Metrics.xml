@@ -139,10 +139,10 @@
     (
     SELECT
     NAME_,
-    <if test="aggregateByReporter">
-      CAST(NULL AS VARCHAR) REPORTER_,
+    <if test="aggregateOverReporter">
+      ${constant.null.reporter},
     </if>
-    <if test="!aggregateByReporter">
+    <if test="!aggregateOverReporter">
       REPORTER_,
     </if>
     VALUE_,
@@ -151,7 +151,7 @@
     ) RES
     GROUP BY
     NAME_,
-    REPORTER_,
+      REPORTER_,
     INTERVAL_
   </sql>
 

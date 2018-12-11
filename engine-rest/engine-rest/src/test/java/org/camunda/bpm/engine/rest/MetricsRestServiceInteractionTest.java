@@ -167,7 +167,7 @@ public class MetricsRestServiceInteractionTest extends AbstractRestServiceTest {
   @Test
   public void testGetIntervalAggregation() {
     given()
-      .queryParam("aggregateByReporter", true)
+      .queryParam("aggregateOverReporter", true)
       .then()
         .expect()
           .statusCode(Status.OK.getStatusCode())
@@ -243,7 +243,7 @@ public class MetricsRestServiceInteractionTest extends AbstractRestServiceTest {
       .queryParam("firstResult", 10)
       .queryParam("startDate", DATE_FORMAT_WITH_TIMEZONE.format(new Date(0)))
       .queryParam("endDate", DATE_FORMAT_WITH_TIMEZONE.format(new Date(15 * 60 * 1000)))
-      .queryParam("aggregateByReporter", true)
+      .queryParam("aggregateOverReporter", true)
       .queryParam("interval", 300)
       .then()
         .expect()
