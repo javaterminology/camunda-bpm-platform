@@ -140,7 +140,7 @@
     SELECT
     NAME_,
     <if test="aggregateByReporter">
-      null as REPORTER_,
+      null REPORTER_,
     </if>
     <if test="!aggregateByReporter">
       REPORTER_,
@@ -151,9 +151,7 @@
     ) RES
     GROUP BY
     NAME_,
-    <if test="aggregateByReporter == null || !aggregateByReporter">
-      REPORTER_,
-    </if>
+    REPORTER_,
     INTERVAL_
   </sql>
 
