@@ -176,7 +176,7 @@ public class MetricsRestServiceInteractionTest extends AbstractRestServiceTest {
 
     verify(meterQueryMock).name(null);
     verify(meterQueryMock).reporter(null);
-    verify(meterQueryMock).aggregateByReporter();
+    verify(meterQueryMock).aggregateOverReporter();
     verify(meterQueryMock, times(1)).interval();
     verifyNoMoreInteractions(meterQueryMock);
   }
@@ -257,7 +257,7 @@ public class MetricsRestServiceInteractionTest extends AbstractRestServiceTest {
     verify(meterQueryMock).limit(10);
     verify(meterQueryMock).startDate(new Date(0));
     verify(meterQueryMock).endDate(new Date(15 * 60 * 1000));
-    verify(meterQueryMock).aggregateByReporter();
+    verify(meterQueryMock).aggregateOverReporter();
     verify(meterQueryMock, times(1)).interval(300);
     verifyNoMoreInteractions(meterQueryMock);
   }

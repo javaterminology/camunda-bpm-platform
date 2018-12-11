@@ -64,7 +64,12 @@ public interface MetricsQuery {
    */
   MetricsQuery limit(int maxResults);
 
-  MetricsQuery aggregateByReporter();
+  /**
+   * Aggregate metrics over reporters
+   *
+   * @return the adjusted MetricsQuery
+   */
+  MetricsQuery aggregateOverReporter();
 
   /**
    * Returns the metrics summed up and aggregated on a time interval.
