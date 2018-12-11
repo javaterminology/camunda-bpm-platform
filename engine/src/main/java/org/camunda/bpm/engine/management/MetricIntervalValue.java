@@ -36,7 +36,9 @@ public interface MetricIntervalValue {
   String getName();
 
   /**
-   * Returns the reporter name of the metric. Identifies the node which generates this metric.
+   * Returns
+   *        the reporter name of the metric, identifies the node which generates this metric.
+   *        'null' when the metrics are aggregated by reporter.
    *
    * @return the reporter name
    */
